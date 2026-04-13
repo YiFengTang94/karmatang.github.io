@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐壹峰 - AI工程师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #1e3a5f;
+            --color-secondary: #2d5a8c;
+            --color-accent: #4a7ba7;
+            --color-light: #f5f7fa;
+            --color-text: #1a1f2e;
+            --color-text-secondary: #5a6b7d;
+            --color-border: #e0e5ed;
+            --color-gradient-start: #0f1b2e;
+            --color-gradient-end: #1e3a5f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--color-text);
+            background: linear-gradient(180deg, #f8f9fc 0%, #f0f3f9 100%);
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        /* Header - Flow & Minimal */
+        .header {
+            position: relative;
+            padding: 3rem 1.5rem 4rem;
+            background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+            color: #ffffff;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        /* Subtle flowing background animation */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(74, 123, 167, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(74, 123, 167, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 8vw, 44px);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .header .title {
+            font-size: clamp(14px, 4vw, 16px);
+            font-weight: 300;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .header .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 13px;
+        }
+
+        .header .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .header .contact-item:hover {
+            opacity: 1;
+        }
+
+        .header a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Sections - Minimal spacing */
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: clamp(18px, 5vw, 24px);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-secondary), transparent);
+            border-radius: 1px;
+        }
+
+        /* Card Component - Clean & Minimal */
+        .card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.08);
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        /* Education */
+        .education-item {
+            padding-bottom: 1.75rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .education-item strong {
+            display: block;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-size: 15px;
+        }
+
+        .education-item p {
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Skills Grid - Mobile First */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, rgba(74, 123, 167, 0.05) 0%, transparent 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(74, 123, 167, 0.1);
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .skill-item:hover {
+            background: linear-gradient(135deg, rgba(74, 123, 167, 0.1) 0%, transparent 100%);
+            border-color: var(--color-accent);
+            transform: translateY(-1px);
+        }
+
+        .skill-item h3 {
+            font-size: 14px;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .skill-item p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Experience */
+        .experience-item {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experience-item h3 {
+            font-size: 15px;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .experience-item .meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+            font-size: 12px;
+        }
+
+        .experience-item .role {
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        .experience-item .date {
+            color: var(--color-text-secondary);
+        }
+
+        .experience-item p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Personal Experience */
+        .personal-exp-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            .personal-exp-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .exp-item {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.03) 0%, transparent 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--color-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .exp-item:hover {
+            border-left-color: var(--color-accent);
+            transform: translateX(4px);
+        }
+
+        .exp-item h4 {
+            font-size: 14px;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .exp-item p {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Projects */
+        .project-item {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-item h4 {
+            font-size: 15px;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .project-item .badge {
+            display: inline-block;
+            font-size: 10px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .project-item .period {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .project-item ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .project-item li {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.75rem;
+            padding-left: 1.25rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .project-item li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* Awards */
+        .awards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        .award-item {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .award-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(45, 90, 140, 0.3);
+        }
+
+        /* Ai Highlight */
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Responsive - Mobile First */
+        @media (max-width: 640px) {
+            .header {
+                padding: 2.5rem 1.5rem 3rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section {
+                margin-bottom: 3rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .container {
+                padding: 0 1.25rem;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header {
+                background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        /* Loading animation for page */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            animation: pageLoad 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>唐壹峰</h1>
+            <p class="title">AI ENGINEER · SYSTEM ARCHITECT</p>
+            <div class="contact">
+                <div class="contact-item">
+                    <span>男 | 30岁</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <a href="tel:13728789224">13728789224</a>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <a href="mailto:tangyifengcn@gmail.com">tangyifengcn@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- 教育背景 -->
+        <section class="section">
+            <h2 class="section-title">教育背景</h2>
+            <div class="card">
+                <div class="education-item">
+                    <strong>深圳大学</strong>
+                    <p>信息与计算科学 / 计算机科学与技术（辅修） 本科</p>
+                    <p>2013-09 ~ 2017-07</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section class="section">
+            <h2 class="section-title">工作经历</h2>
+            <div class="card">
+                <div class="experience-item">
+                    <h3>腾讯科技（深圳）有限公司</h3>
+                    <div class="meta">
+                        <span class="role">后台开发工程师 | 社交增值产品部</span>
+                        <span class="date">2021-05 ~ 2025-09</span>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <h3>深圳软通动力信息技术有限公司</h3>
+                    <div class="meta">
+                        <span class="role">大数据开发工程师</span>
+                        <span class="date">2018-05 ~ 2021-05</span>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <h3>深圳楼氏文化传播有限公司</h3>
+                    <div class="meta">
+                        <span class="role">数据分析专员</span>
+                        <span class="date">2017-06 ~ 2018-05</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业技能 -->
+        <section class="section">
+            <h2 class="section-title">专业技能</h2>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 16px;">AI & 智能开发能力 <span class="ai-badge">核心</span></h3>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">
+                        <strong style="color: var(--color-text);">熟练掌握 Claude Code / Codex 进行程序开发</strong>：使用先进的AI代码生成工具进行高效开发、代码优化和问题诊断
+                    </li>
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">
+                        <strong style="color: var(--color-text);">掌握多Agent协作和SOP开发理念</strong>：深入理解Agent编排、工作流设计和自动化任务执行
+                    </li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">
+                        <strong style="color: var(--color-text);">Skill框架提效应用</strong>：利用Skill模块化开发理念提升开发效率和代码复用性
+                    </li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 16px;">分布式系统开发能力</h3>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">精通 <strong>Go 语言</strong>开发，具备扎实的推荐系统设计与开发经验</li>
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">熟悉微服务架构、容错机制及高并发场景优化</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">深度参与AI相关系统开发（内容理解识别、颜值/人脸识别集成）</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 16px;">大数据处理技术栈</h3>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">熟练掌握 <strong>Spark 和 Flink 框架</strong>，拥有海量数据实时/离线处理实战经验</li>
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">包括ETL流开发、流批一体架构搭建及性能调优</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">实时数据链路开发和实时特征工程经验</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 16px;">数据存储与消息通信</h3>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">深入理解数据库(Hive/MySQL/Redis)和消息队列(Kafka)的核心原理</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">能高效实现数据读写分离、缓存策略设计及异步解耦方案</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 16px;">数据开发能力</h3>
+                <ul style="list-style: none;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">使用 <strong>Python</strong> 开发pyspark数据处理任务、脚本任务等</li>
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">支撑推荐、广告、内容理解等业务场景的数据需求</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">参与数据指标体系建设和AI实验平台集成</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 个人经验与实践 -->
+        <section class="section">
+            <h2 class="section-title">个人经验与实践 <span class="ai-badge">创新</span></h2>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 16px;">Agent定时任务应用</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;"><strong style="color: var(--color-text);">热点资讯过滤推送</strong>：使用Agent实现智能资讯爬取、内容理解和个性化推送</li>
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;"><strong style="color: var(--color-text);">哲学概念每日聊天式学习</strong>：构建Agent对话系统进行知识点递进式学习</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;"><strong style="color: var(--color-text);">12306余票实时监控</strong>：利用Agent定时任务实现智能出行辅助</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 16px;">Web应用开发</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem;">
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;"><strong style="color: var(--color-text);">周报助手</strong>：设计并实现智能报告生成系统，支持自动数据汇总和报告格式化</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 16px;">工作流自动化（n8n）</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem;">
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;"><strong style="color: var(--color-text);">TikTok电商视频生成工作流</strong>：设计完整的工作流管道，实现视频内容自动化生成和发布</li>
+                </ul>
+
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 16px;">OpenClaw办公提效应用</h3>
+                <ul style="list-style: none;">
+                    <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">集成微信和飞书，构建企业办公自动化系统</li>
+                    <li style="padding-left: 1.25rem; position: relative; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">利用OpenClaw框架提升团队协作效率</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 项目经历 -->
+        <section class="section">
+            <h2 class="section-title">项目经历</h2>
+            <div class="card">
+                <div class="project-item">
+                    <h4>推荐系统优化与工程化建设</h4>
+                    <span class="period">2023-01 ~ 2025-09 | 腾讯 - 后台开发</span>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">分布式系统架构升级</h5>
+                    <ul>
+                        <li>设计分布式系统接入方案，推动增值业务广告红点/公众号/内部资源位15+渠道统一接入推荐系统（覆盖80%渠道收入），降低运营人力成本90%（人工决策降至0）</li>
+                        <li>使用Spark重构广告投放从素材创建-广告创建-号码包投放流程全自动化</li>
+                        <li>开发拉模式回调（天枢/CLM），集成频控与事件过滤功能，缓存推荐结果，回调峰值QPS从8w/s降至4k/s</li>
+                        <li>升级瑶光推荐框架推模式，基于kafka主动控制下发策略，减少大量无效拉取，会员公众号收入提升8.81万/日</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">分布式框架迁移与复用</h5>
+                    <ul>
+                        <li>主导分布式推荐框架（瑶光）迁移，完成42个业务场景接入，算子化复用40+功能模块</li>
+                        <li>构建Go微服务算子，新场景接入仅需0.5人/日搭建DAG链路，解决烟囱式开发问题</li>
+                        <li>迁移ES召回/相似FaissES召回/冷启ES召回模块，支持个性装扮商城改版等关键实验</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <h4>增值业务数据资产盘点和成本优化</h4>
+                    <span class="period">2022-07 ~ 2023-07 | 腾讯 - 后台开发</span>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">数据治理与成本优化</h5>
+                    <ul>
+                        <li>通过合并应用组与HiveSQL调优、基于Spark优化大任务，将资源利用率从90%降至40-50%，离线表/云搜/es/画像中台实现月度成本降低50万元</li>
+                        <li>主导数仓体系重构，治理4.3万+数据表，清除12%冗余表，节省存储成本0.5万元/月；统一会员等业务DWD-DWS-ADS分层架构，使日均计算资源消耗从80%降至55%</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">AB实验与数据指标体系建设</h5>
+                    <ul>
+                        <li>推动直播、会员等业务全线接入TAB实验平台，并利用Python开发指标计算脚本，提升实验置信度与决策效率</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">数据开发流程提效</h5>
+                    <ul>
+                        <li>借助欧拉、Datamesh平台实现数据从接入、计算到展示的全流程开发，将交付周期压缩至1天内</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">数据稳定性保障</h5>
+                    <ul>
+                        <li>规范离线数据开发流程规范，告警收敛治理，用欧拉基线告警+oncall来实现分级，覆盖模型/报表/tab指标/流水预处理这四类关键表，实现数据问题发现小时级响应（原T+1），将数据事故率控制在<1次/月</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <h4>直播推荐数据工程建设</h4>
+                    <span class="period">2021-05 ~ 2022-07 | 腾讯 - 后台开发</span>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">数据基础能力与微服务化建设</h5>
+                    <ul>
+                        <li>统一手Q/Now直播实时 & 离线数据ETL链路，构建涵盖大盘、算法、内容、留存、渠道5大维度的报表体系，支撑收入串联与分析</li>
+                        <li>基于微服务封装通用组件：将直播素材查询/修改RPC调用封装为接口并沉淀至公共库，为Flink/Spark任务提供标准化服务调用，提升开发效率</li>
+                        <li>用Spark开发七彩石同步TDW维表任务，替换原罗盘维表下线的功能</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">内容质量识别体系搭建 <span class="badge">AI应用</span></h5>
+                    <ul>
+                        <li>接入颜值打分、人脸识别、黑屏识别等<strong>内容理解应用</strong>，减少无效直播推荐流量，丰富模型特征维度</li>
+                        <li>基于Flink+FFmpeg构建流式识别Pipeline，将内容识别粒度从5分钟优化至10秒（受部署限制实际为5min）</li>
+                        <li>设计并上线柔性清晰度策略，峰值内容过滤率从80%（原阈值方案）降低至60%</li>
+                    </ul>
+
+                    <h5 style="color: var(--color-primary); margin-top: 1rem; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600;">实时数据链路开发</h5>
+                    <ul>
+                        <li>应用Flink搭建实时样本与实时特征工程链路，赋能直播推荐业务迭代</li>
+                        <li>应用Flink搭建冷启动扶持机制，保证新主播得到足够流量</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <h4>会员智能关怀与场景化推荐</h4>
+                    <span class="period">2022-07 ~ 2022-12 | 腾讯 - 后台开发</span>
+                    <ul>
+                        <li>搭建高效离线数据同步与处理链路，并基于ElasticSearch构建OLAP查询系统，实现效果数据的多维度查询与多时间粒度聚合，节省取数人力1人日/周</li>
+                        <li>通过天枢API自动化创建投放任务并支持AB实验，搭建完整的实验指标与下钻分析链路；集成4类用户偏好模型标签，驱动次月关怀渗透用户留存率提升50%</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <h4>增值业务数据ETL</h4>
+                    <span class="period">2018-05 ~ 2021-05 | 软通 - 数据开发</span>
+                    <ul>
+                        <li>主导百亿级广告平台（天枢系统）数据开发，搭建用户画像标签体系，支撑40%广告投放号码包需求</li>
+                        <li>为千万级收入活动（QQ会员20周年庆）提供数据支撑，通过Spark RDD处理十亿级用户排序，并设计全链路监控与容灾方案</li>
+                        <li>负责春节红包等千亿级数据计算，通过Spark深度调优将出数时间从5小时压缩至1小时内</li>
+                        <li>为空间视频/增值业务开发超100张自动化报表，保障亿级数据3小时内稳定产出</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <h4>微博广告数据分析</h4>
+                    <span class="period">2017-06 ~ 2018-05 | 楼氏 - 数据分析</span>
+                    <ul>
+                        <li>出具微博广告数据日报/周报/月报</li>
+                        <li>出具分析报告：包括但不限于每月微博广告、市场热点项目及产品建议报告，17年业绩增长来源/竞争对手增长分析报告，盘点每月潜力客户表</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 获奖经历 -->
+        <section class="section">
+            <h2 class="section-title">获奖经历</h2>
+            <div class="card">
+                <div class="awards-container">
+                    <div class="award-item">🏆 腾讯绩效Good+ (2021H2)</div>
+                    <div class="award-item">⭐ 腾讯社交STAR奖 (2022H2)</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
